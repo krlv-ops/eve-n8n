@@ -1,21 +1,8 @@
-# Small, stable Node base
-FROM node:18-bullseye
+# Use official n8n image so we don't chase npm versions
+FROM n8nio/n8n:latest
 
-# Create app dir
-WORKDIR /app
-
-# Install n8n
-RUN npm install -g n8n@1.61.4
-
-# Copy entrypoint
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# n8n stores data here
-RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node
-
-USER node
+# Render maps traffic to $PORT. n8n defaults to 5678.
+ENV N8N_HOST=0.0.0.0
 ENV N8N_PORT=5678
-EXPOSE 5678
 
-ENTRYPOINT ["/entrypoint.sh"]
+EXPOSE 5678
