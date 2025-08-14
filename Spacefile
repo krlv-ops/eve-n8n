@@ -1,0 +1,8 @@
+v: 1
+app: eve-n8n
+micros:
+  - name: web
+    primary: true
+    src: .
+    engine: docker
+    http_port: 5678
